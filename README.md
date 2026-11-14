@@ -100,6 +100,115 @@ Users should keep this feature disabled unless they are deliberately testing an 
 - **Target game release:** Nintendo Switch version 1.9.0.
 - **Other game versions and platforms:** not covered by the current validation. No compatibility with the Wii U release is claimed.
 
+## Supported Platform and Runtime Requirements
+
+### Fork target
+
+This fork's **documented build target is Windows 10 or later (x86-64)**. The fork-specific build and packaging workflow described below uses the Windows toolchain and has not been validated as a Linux or macOS build. This is a scope statement for this fork; it does not mean that the original Savage Wind project is limited to Windows.
+
+For running Savage Wind, the upstream 0.4.1-alpha.4 requirements include:
+
+- A Vulkan 1.3-compatible graphics device and driver.
+- A CPU supporting SSE4.2.
+- Approximately 20 GB of free disk space for setup and generated data.
+- The user's own legally obtained Nintendo Switch game files, updated to the supported game version. These files are not included in this repository.
+
+The cheat work documented here targets the **Nintendo Switch release, version 1.9.0**. The Wii U release is not a supported target of this fork's cheat implementations. No Linux, macOS, or Wii U compatibility is claimed for the fork-specific changes.
+
+## Building the Source on Windows (x86-64)
+
+The steps below build the fork from source using the Windows development environment described by the upstream Savage Wind Recomp 0.4.1-alpha.4 build guide. Run commands from the repository root unless a step says otherwise.
+
+### 1. Clone your fork
+
+Clone your own public fork and enter its directory:
+
+```bash
+git clone https://github.com/<YOUR_USERNAME>/<YOUR_FORK>.git
+cd <YOUR_FORK>
+```
+
+Replace the placeholders with your GitHub username and fork repository name.
+
+### 2. Install the Windows build environment
+
+Open **PowerShell** in the repository root and run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\setup_windows.ps1
+```
+
+The setup script prepares the MSYS2 UCRT64 toolchain and the Python environment used by the project. The upstream setup includes the compiler and linker, Make, SDL3, FFmpeg, Vulkan development files, shaderc, Vulkan Memory Allocator, validation layers, and Python 3.12 with the project's required tooling packages.
+
+Allow the setup process to finish before proceeding.
+
+### 3. Open the MSYS2 UCRT64 terminal
+
+Launch **MSYS2 UCRT64** from the Start menu. Change to the cloned repository directory. For example:
+
+```bash
+cd /c/path/to/<YOUR_FORK>
+```
+
+Add the UCRT64 tools and libraries to the current shell's `PATH`:
+
+```bash
+export PATH="/c/msys64/ucrt64/bin:/c/msys64/usr/bin:$PATH"
+```
+
+Keep using this MSYS2 UCRT64 terminal for the remaining build commands.
+
+### 4. Compile the application and runtime
+
+For a quick compilation check of the runtime objects:
+
+```bash
+make runtime-objs
+```
+
+To build the application from source:
+
+```bash
+make -j
+```
+
+The normal build uses the project's configured build directory. If the local checkout does not contain generated game-code output, the application can still be built; the game-code setup/recompilation step is handled locally through the application's setup flow when the user supplies their own game files.
+
+### 5. Run the fork's isolated tests
+
+The fork adds tests for the cheat catalog and its host-side configuration/support logic. Run:
+
+```bash
+make test-sw-cheats
+make test-cheat-catalog
+```
+
+These tests validate the fork's isolated support code. **They do not prove that an unfinished cheat works in gameplay**, and they do not replace testing the application on a Windows machine with the user's own game files. In particular, the 9999 Map Stamps Limit cheat remains unvalidated as described above.
+
+### 6. Build a portable Windows distribution ZIP (optional)
+
+To create a packaged Windows distribution rather than only compiling the local application, run these commands in the MSYS2 UCRT64 terminal:
+
+```bash
+make deps-windows
+make gen-helper
+tools/fetch_zig.sh
+make dist
+```
+
+- `make deps-windows` prepares the Windows FFmpeg dependency bundle. The upstream build guide notes that this step downloads FFmpeg source and requires NASM; it is generally a one-time dependency build.
+- `make gen-helper` builds the standalone game-code generator used by the application's setup flow.
+- `tools/fetch_zig.sh` fetches the Zig compiler used by that setup flow.
+- `make dist` creates the distributable ZIP under `build/dist/`, with a filename following the `SavageWind-<version>-windows.zip` pattern.
+
+The fork's packaging changes include its cheat catalog files in the distribution. The package must **not** contain proprietary game code, game binaries, extracted game data, or user save data. The game code required at runtime is generated locally by each user from their own game files; it must not be uploaded or redistributed.
+
+### 7. Test the packaged build
+
+Before distributing a ZIP, extract it into a new writable folder on Windows (not `Program Files`), launch it, and verify that the application starts. Complete the application's game-file setup only with the user's own legally obtained files. Keep the test installation and its generated data separate from the source repository.
+
+For additional details or troubleshooting, consult the upstream [Windows build guide for Savage Wind Recomp 0.4.1-alpha.4](https://github.com/Revivedx/SavageWindRecomp/blob/v0.4.1-alpha.4/docs/BUILD-windows.md). The commands above describe the upstream build environment together with this fork's added test and packaging targets; successful compilation and gameplay must still be verified on the machine performing the build.
+
 ## Copyright and Distribution Notice
 
 - This fork does **not** include or distribute proprietary BOTW game code, game functions, symbols, offsets, disassemblies, executable files, game binaries, assets, or extracted game data from either the **Wii U** or **Nintendo Switch** release.
