@@ -1,0 +1,3 @@
+Font binaries are intentionally omitted. Copy the original third_party/fonts/ from your own previously downloaded SavageWindRecomp-0.4.1-alpha.4.zip before make dist.
+
+As fontes não fazem parte desta entrega; antes de `make dist`, copie as fontes necessárias do projeto original conforme a documentação anterior.

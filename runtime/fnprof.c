@@ -8,6 +8,7 @@
 
 #include "hle.h"
 #include "platform.h"
+#include "stamp_flow.h"
 
 volatile int g_fnprof;
 
@@ -90,6 +91,10 @@ static void args_check(uint64_t a, uint64_t lr) {
 }
 
 void fnprof_hit(uint64_t a, uint64_t lr, uint64_t x0) {
+    if (__builtin_expect(__atomic_load_n(&rt_sw_stamp_flow_active, __ATOMIC_RELAXED), 0)) {
+        rt_sw_stamp_flow_hit(a, lr, x0);
+        return;
+    }
     if (bt_n) bt_check(a, lr, x0);
     if (args_n) args_check(a, lr);
     uint32_t h = (uint32_t)((a >> 2) * 0x9E3779B1u) & (NSLOT - 1);
@@ -108,6 +113,7 @@ static int cmp(const void *x, const void *y) {
 }
 
 void fnprof_frame(uint64_t frame) {
+    rt_sw_stamp_flow_frame(frame);
     static long from = -2, to;
     if (from == -2) {
         from = -1;

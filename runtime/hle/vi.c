@@ -4,7 +4,6 @@
 
 #include "../hle.h"
 #include "../kernel.h"
-#include "../prof.h"
 
 static uint32_t vsync_r, vsync_w;
 static KEvent *vsync_event;
@@ -13,7 +12,6 @@ uint64_t g_native_window;
 
 static void *vsync_thread(void *arg) {
     (void)arg;
-    prof_thread_name("vsync");
     const uint64_t period = 16666667;
     plat_thread_realtime(period);
     uint64_t next = plat_now_ns();
@@ -28,7 +26,7 @@ static void *vsync_thread(void *arg) {
         }
         klock();
         kernel_signal(vsync_event);
-        kunlock();
+        pthread_mutex_unlock(&g_klock);
     }
     return NULL;
 }
