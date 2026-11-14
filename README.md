@@ -1,145 +1,113 @@
-<p align="center"><img src="docs/media/banner.png" alt="Savage Wind" width="640"></p>
+# Savage Wind Recomp — Cheats Extension Fork
 
-<p align="center">
-  <a href="https://github.com/Revivedx/SavageWindRecomp/releases/latest"><b>Download</b></a> ·
-  <a href="#get-started">Get started</a> ·
-  <a href="docs/STATUS.md">Status</a> ·
-  <a href="docs/FAQ.md">FAQ</a> ·
-  <a href="https://github.com/Revivedx/SavageWindRecomp/issues">Issues</a> ·
-  <a href="CHANGELOG.md">Changelog</a>
-</p>
+> **Original project and credits**  
+> This fork is based on **[Savage Wind Recomp](https://github.com/Revivedx/SavageWindRecomp)**, originally created and maintained by **[Revivedx](https://github.com/Revivedx)**, with contributions from the upstream project contributors. Full credit goes to the original author and contributors for the work this fork builds upon. The upstream project and its license notices are acknowledged and should remain preserved.
 
-**Savage Wind Recomp** is a work-in-progress static recompilation of *The Legend of Zelda: Breath of the Wild*
-(Nintendo Switch, version 1.9.0) into a native application for Windows and Linux, built from your own copy of the
-game.
+## Purpose of This Fork
 
-<p align="center">
-  <img src="https://i.imgur.com/BaTJyr9.jpg" alt="Screenshot of Savage Wind" width="24%">
-  <img src="https://i.imgur.com/USibLkg.jpg" alt="Screenshot of Savage Wind" width="24%">
-  <img src="https://i.imgur.com/z6dHHLP.jpg" alt="Screenshot of Savage Wind" width="24%">
-  <img src="https://i.imgur.com/p12wEHG.jpg" alt="Screenshot of Savage Wind" width="24%">
-</p>
-<p align="center"><sub>Screenshots taken in Savage Wind. The game is © Nintendo; you need your own copy to run it.</sub></p>
+The purpose of this fork is to extend **Savage Wind Recomp 0.4.1-alpha.4** with support for two optional cheats for **The Legend of Zelda: Breath of the Wild — Nintendo Switch, version 1.9.0**:
 
-<p align="center"><img src="docs/media/progress/overall.svg" alt="Overall progress" width="420"></p>
+- **9999 Map Stamps Limit** — intended to raise the map-stamp limit from 100 to 9,999.
+- **Motorcycle in All Regions** — intended to allow the Master Cycle Zero to be used in regions where its use is normally restricted.
 
-> [!IMPORTANT]
-> **No game files are included.** You need your own legally obtained copy of the game, updated to **version 1.9.0**
-> and dumped from **your own** Nintendo Switch. This project does not provide game files, keys, firmware, dumping or
-> decryption tools, or instructions on how to obtain them. The game code is recompiled locally, on your machine,
-> from your files.
+This repository documents changes made to the Savage Wind Recomp project itself. It does not distribute game data or proprietary game material.
 
-> [!NOTE]
-> **Made almost entirely with AI.** Nearly all of the code, tooling, reverse engineering and documentation is written
-> by an AI (Anthropic's Claude, through Claude Code), directed, tested and reviewed by a human. It builds on
-> [LAS Recomp](https://github.com/peiikai/LASRecomp), made the same way. If you don't trust code written by AI, you
-> can simply ignore this project.
+## Current Development Status
 
-> [!WARNING]
-> **This is an alpha.** The whole game can be finished from start to end, but expect bugs and crashes in some places,
-> and some mechanics that break above 30 fps ([#425](https://github.com/Revivedx/SavageWindRecomp/issues/425)). If a
-> cutscene freezes or breaks, lower the frame rate to 30 fps for that scene.
-
-## Features
-
-- The whole game and both DLC, from your own copy
-- Frame rates from 30 to 360 fps, or your display's own rate
-- Resolutions up to 4K and beyond, ultrawide, and FSR 1 upscaling
-- Graphics presets from Potato, below console quality, to Savage, far beyond it
-- Longer draw distance, sharper shadows, adjustable field of view, colour grading and HDR
-- Keyboard and mouse with real mouse camera, and any controller, gyro included
-- Button prompts that match your device
-- Save profiles, backups, and Wii U / Cemu save import
-- Steam Deck and PC handhelds
-- Photo mode, accessibility options and cheats
-
-## Get started
-
-**You need:** your own game files (see [Game files](docs/game-files.md)), Windows 10 or later or Linux on x86-64, a
-GPU with Vulkan 1.3, 16 GB of RAM, a CPU with SSE4.2 (AVX2 runs faster) and about 20 GB of free disk space.
-
-1. Download the latest build from [Releases](https://github.com/Revivedx/SavageWindRecomp/releases/latest):
-   - **Windows:** the file ending in `windows.zip`. Extract it to a folder you can write to, not Program Files.
-   - **Linux and Steam Deck:** the file ending in `x86_64.AppImage`. Make it executable and run it
-     ([docs/linux.md](docs/linux.md)).
-   - **Linux on ARM:** the file ending in `aarch64.AppImage`. It is highly experimental.
-2. Start it and choose the folder with your extracted game (`exefs/` and `romfs/`). Then choose **Set up game files**.
-   It checks the version, copies the files and recompiles the game code once, about 15 minutes on a 12-thread CPU.
-   Your own files aren't changed.
-3. Play. Settings and languages are in the game's Options. **Savage Wind Configuration** has your game files and the
-   rest of the settings.
-
-**Updating:** from version 0.5.1 on, Savage Wind Configuration updates it in one click, on Windows and in the Linux
-AppImages. Before that, extract the new zip over the old folder or use the new AppImage. Your game files, saves and
-settings stay.
-
-Something wrong? See the [FAQ](docs/FAQ.md), which also lists the known issues.
-
-## Saves
-
-Saves are in the `save` folder of Savage Wind's data folder: next to `savagewind.exe` on Windows, and in
-`~/.local/share/savagewind/save/` on Linux and the Steam Deck. To back them up or move them, close the game and copy
-the whole folder. More in [Saves](docs/saves.md), including profiles and Wii U / Cemu import.
-
-## Status
-
-| Area | Share | Progress |
+| Feature | Status | Summary |
 |---|---|---|
-| Core game | 45% | ![Core game](docs/media/progress/area-core-game.svg) |
-| Platforms and input | 15% | ![Platforms and input](docs/media/progress/area-platforms-and-input.svg) |
-| Performance | 15% | ![Performance](docs/media/progress/area-performance.svg) |
-| Graphics options | 12% | ![Graphics options](docs/media/progress/area-graphics-options.svg) |
-| Player features | 13% | ![Player features](docs/media/progress/area-player-features.svg) |
+| Motorcycle in All Regions | **Implemented; successfully tested** | The cheat was implemented and successfully tested in the Gerudo Desert. The test session remained stable. This confirms the reported test scenario, but does not claim exhaustive testing of every region or gameplay condition. |
+| 9999 Map Stamps Limit | **In progress; not validated** | The investigation identified the game-side routines involved in the original 100-stamp limit and the map-marker workflow. Implementation tests did not produce the intended in-game result, so this cheat must not be considered functional or complete. |
 
-Every part, what it means and how the average is calculated: [Status](docs/STATUS.md).
+## Changes Made to the Savage Wind Recomp Project
 
-## Controls
+The changes below concern the fork's application, configuration, build, and diagnostic infrastructure. They are described at a project level and intentionally omit game-specific implementation details.
 
-Any controller SDL knows works. Keyboard and mouse defaults:
+### 1. Cheat catalog and manifest support
 
-| Action | Key | Action | Key |
-|---|---|---|---|
-| Move | W A S D | Camera | Mouse |
-| Jump | Space | Sprint / back | Left Shift |
-| Interact | E | Attack | Left click |
-| Shield | Right click | Bow | F |
-| Rune | Q | Throw | R |
-| Inventory | Tab | Map | M |
+- Added a structured catalog for the fork's built-in cheats.
+- Added individual entries for **Motorcycle in All Regions** and **9999 Map Stamps Limit**.
+- Each entry can expose user-facing information such as its display name, description, compatibility status, and availability.
+- The catalog distinguishes between a cheat that has a usable implementation and one that is still experimental or incomplete.
 
-Every action can be rebound in the game's Options. All the keys: [Controls](docs/controls.md).
+**Purpose:** provide a consistent way for the application to identify and present supported cheats without treating every catalog entry as a working feature.
 
-## Found a bug?
+### 2. Launcher integration
 
-Read the [FAQ](docs/FAQ.md) first: issues about something it already covers are closed right away. Use the latest
-release and game version 1.9.0, search the [existing issues](https://github.com/Revivedx/SavageWindRecomp/issues?q=is%3Aissue),
-and [open one](https://github.com/Revivedx/SavageWindRecomp/issues/new/choose) with your `savagewind.log`. On a crash
-or a cutscene bug, attach your zipped `save` folder too. Reports without these are closed after 7 days.
+- Added a **Cheats** area to the Savage Wind configuration interface.
+- Integrated discovery of the cheat entries provided by the fork.
+- Added individual enable/disable controls for the supported entries.
+- Made the interface communicate when a listed feature is experimental or not yet validated.
 
-## Contributing and building
+**Purpose:** allow users to manage the fork's optional features through the existing configuration application instead of editing project settings manually.
 
-Open pull requests against the [`test`](https://github.com/Revivedx/SavageWindRecomp/tree/test) branch, which has
-everything ahead of the latest release. See [CONTRIBUTING.md](CONTRIBUTING.md). To build from source:
-[Windows](docs/BUILD-windows.md) and [Linux](docs/linux.md).
+### 3. Persistent cheat settings
 
-## Respect copyright
+- Added storage for the user's cheat selections in a separate Savage Wind configuration file.
+- Added loading of those settings during application initialization.
+- Kept the cheat selections independent, so changing one does not require changing the other.
+- The selected state is applied when the application starts; a restart may be required for a change to take effect.
 
-- *The Legend of Zelda: Breath of the Wild* is © Nintendo. This is a fan project. It is not affiliated with,
-  endorsed by or sponsored by Nintendo. *Nintendo Switch* and *The Legend of Zelda* are trademarks of Nintendo.
-- This repository contains no game files, no game code (also not the C code the recompiler generates from it), no
-  assets, no fonts, no keys - and release builds won't either.
-- The game code you generate and the build made from it contain Nintendo's code. They are for your own use only:
-  don't share them, upload them or ship them.
-- Issues, pull requests or discussions that contain game files, keys, generated code or links to pirated copies
-  will be removed. Piracy is not supported in any way.
-- Follow the copyright laws of your country. Dumping a game you own for personal use is legal in some countries and
-  not in others; that is your responsibility.
+**Purpose:** preserve the user's choices between sessions and keep cheat preferences separate from the original application's general settings.
 
-## Credits and license
+### 4. Recompilation and compatibility safeguards
 
-Built on **[LAS Recomp](https://github.com/peiikai/LASRecomp)** by peiikai (MIT), with
-[TotK Recomp](https://github.com/valentderah/totk-pc-recomp) by Valiantsin Dzerakh (MIT) and
-[Ryujinx](https://github.com/Ryujinx/Ryujinx) (MIT) as references. Full list and the licenses of what releases bundle:
-[Credits](docs/third-party.md).
+- Integrated the fork's optional cheat handling into the existing recompilation workflow.
+- Added compatibility checks so experimental changes are restricted to the intended Switch 1.9.0 target build.
+- Added validation intended to prevent an experimental modification from being applied when the expected target does not match.
+- Kept incomplete features distinguishable from validated ones.
 
-Savage Wind Recomp's own code is under the [MIT License](LICENSE). The license covers this project's code only: it
-grants nothing for Nintendo's game, which you must supply yourself.
+**Purpose:** reduce the risk of applying a version-specific modification to an unsupported target and make the experimental status of each feature explicit.
+
+### 5. Build, packaging, and update workflow
+
+- Updated the project's build and distribution process to include the fork's cheat catalog files.
+- Updated the existing-install workflow to account for the built-in cheat entries.
+- Added backup-aware handling for replaced built-in configuration entries while preserving unrelated user data and third-party entries.
+
+**Purpose:** make the fork's application-side additions available in packaged builds and reduce the chance of overwriting user configuration during an update.
+
+### 6. Diagnostics and development tests
+
+- Added isolated tests for the fork's cheat catalog, configuration handling, and supporting host-side logic.
+- Added diagnostic work to investigate how the map-stamp limit behaves while the map interface is used.
+- Used read-only observations during the stamp investigation to follow the relevant execution flow without treating diagnostic observations as proof that the cheat works.
+- Kept automated test results separate from in-game validation.
+
+**Purpose:** improve the reliability of the fork's own infrastructure and provide evidence for further investigation without claiming that isolated tests prove correct gameplay behavior.
+
+## Development Notes
+
+### Motorcycle in All Regions
+
+The Motorcycle in All Regions implementation is the first of the two target features to reach a successful in-game test. It was tested in the Gerudo Desert, and the session remained stable. Further testing across additional regions and gameplay conditions may still be useful, but the implementation has passed the reported test scenario.
+
+### 9999 Map Stamps Limit
+
+The investigation successfully narrowed down and identified the game-side routines associated with the original 100-stamp limit and the map-marker handling process. However, identifying the relevant routines did not by itself resolve every condition involved in placing and managing additional markers.
+
+The implementation attempts did not pass the in-game tests. As a result:
+
+- The **9999 Map Stamps Limit** feature remains unfinished and unvalidated.
+- The presence of a setting, catalog entry, or experimental implementation must not be interpreted as proof that 9,999 stamps can be placed safely.
+- Further work is required to understand and validate the complete marker-management and save-data behavior before this feature can be considered complete.
+
+Users should keep this feature disabled unless they are deliberately testing an experimental build, and should maintain backups of their saves when testing unfinished functionality.
+
+## Compatibility Scope
+
+- **Base project:** Savage Wind Recomp 0.4.1-alpha.4.
+- **Target game release:** Nintendo Switch version 1.9.0.
+- **Other game versions and platforms:** not covered by the current validation. No compatibility with the Wii U release is claimed.
+
+## Copyright and Distribution Notice
+
+- This fork does **not** include or distribute proprietary BOTW game code, game functions, symbols, offsets, disassemblies, executable files, game binaries, assets, or extracted game data from either the **Wii U** or **Nintendo Switch** release.
+- No game-specific code or binary material is reproduced in this README.
+- The repository is intended to contain changes to the Savage Wind Recomp project and its supporting documentation only. Users must provide their own legally obtained game materials where required by the upstream project.
+- *The Legend of Zelda: Breath of the Wild* and related Nintendo properties belong to Nintendo. This is an unofficial fan project and is not affiliated with, endorsed by, or sponsored by Nintendo.
+- Preserve the upstream `LICENSE` file and all applicable third-party license and copyright notices when redistributing this fork.
+
+## Acknowledgements
+
+Thanks again to **[Revivedx](https://github.com/Revivedx/SavageWindRecomp)** and the Savage Wind Recomp contributors for creating and maintaining the original project on which this fork is based.
